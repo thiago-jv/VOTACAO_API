@@ -17,19 +17,19 @@ public interface PautaControllerOpenApi {
     PautaResponseDTO criar(
             @ApiParam(name = "corpo", value = "Representação de uma pauta") PautaPostDTO pautaPostDTO);
 
-    @ApiOperation("Atualiza Pauta de Votação por status para SIM")
+    @ApiOperation("Atualiza Pauta de Votação por status para SIM, dessa forma habilitando para votação")
     @ApiResponses({
             @ApiResponse(code = 404, message = "Pauta de Votação não encontrado", response = Problema.class),
     })
     void atualizarStatusHabilitadoSim(@PathVariable Long id);
 
-    @ApiOperation("Atualiza Pauta de Votação por status para NAO")
+    @ApiOperation("Atualiza Pauta de Votação por status para NAO, dessa forma não habilitando para votação")
     @ApiResponses({
             @ApiResponse(code = 404, message = "Pauta de Votação não encontrado", response = Problema.class),
     })
     void atualizarStatusHabilitadoNao(@PathVariable Long id);
 
-    @ApiOperation("Atualiza Pauta de votação pora status de FECHADO, dessa forma criando um 'producer-fila' no rabitmq nomeada 'VOTACAO_RESULTADO'")
+    @ApiOperation("Atualiza Pauta de votação para status de FECHADO, dessa fnalizando sessão e criando um 'producer-fila' no RabitMQ nomeada 'VOTACAO_RESULTADO', vale resaltar que para FECHADO, o status deve ser Habilitado para votação SIM")
     @ApiResponses({
             @ApiResponse(code = 404, message = "Pauta de Votação não encontrado", response = Problema.class),
     })
