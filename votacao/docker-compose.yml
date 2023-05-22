@@ -1,0 +1,54 @@
+  version: "3.2"
+
+  services:
+    rabbitmq:
+      container_name: rabbitmq-data-votacao
+      image: rabbitmq:3.8.3-management
+      ports:
+        - 5672:5672
+        - 15672:15672
+      volumes:
+        - rabbitmq-data-votacao:/var/lib/rabbitmq/
+      environment:
+        - RABBITMQ_ERLANG_COOKIE=secret_pass
+        - RABBITMQ_DEFAULT_USER=admin
+        - RABBITMQ_DEFAULT_PASS=admin
+      networks:
+        - network_app
+
+    db-mysql:
+      image: mysql:5.7
+      container_name: db-mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: my_secret_password
+        MYSQL_DATABASE: app_votacao
+        MYSQL_USER: db_user
+        MYSQL_PASSWORD: db_user_pass
+      ports:
+        - "3306:3306"
+      volumes:
+        - data-mysql:/var/lib/mysql
+      networks:
+        - network_app
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmy-admin
+      links:
+        - db-mysql
+      environment:
+        PMA_HOST: db-mysql
+        PMA_PORT: 3306
+        PMA_ARBITRARY: 1
+      restart: always
+      ports:
+        - 8080:80
+      networks:
+        - network_app
+
+  volumes:
+    data-mysql:
+    rabbitmq-data-votacao:
+
+  networks:
+    network_app:
+      driver: bridge
