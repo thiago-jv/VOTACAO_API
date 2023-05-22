@@ -19,7 +19,7 @@ Sistema para controle de votação em grupo de reunião
  Filas lançada no RabitMQ - (PRODUCER).
 
  ![docker-compose]( https://github.com/thiago-jv/VOTACAO_API/blob/main/docker_compose.png)
-  Arquivo de docker-compose com as condigurações a serem subidas no container, dessa forma disponibilizando estrutura do projeto.
+  Arquivo docker-compose com as configurações a serem subidas no container, dessa forma disponibilizando estrutura do projeto.
 
 
 
