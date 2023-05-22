@@ -36,6 +36,13 @@ Sistema para controle de votação em grupo de reunião
  ![spring-boot-run](https://github.com/thiago-jv/VOTACAO_API/blob/main/runing.png)
  Após rodar os comanda acima, caso não queira rodar via IDE.
  
+ # Pré-requisitos
+
+Instalar ou configura manven 3.8.7 ou versão compativel.
+
+Instalar ou configurar o java 11 ou superior.
+
+Instalar ou configurar docker.
 
 
  
