@@ -9,7 +9,7 @@ public interface AssociadoControllerOpenApi {
 
     @ApiOperation("Cria um novo associado")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Associado cadastrado"),
+            @ApiResponse(code = 200, message = "Associado cadastrado"),
     })
     AssociadoResponseDTO criar(
             @ApiParam(name = "corpo", value = "Representação de um associado") AssociadoPostDTO associadoPostDTO);
