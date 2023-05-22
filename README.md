@@ -20,6 +20,7 @@ Sistema para controle de votação em grupo de reunião
 
  ![docker-compose](https://github.com/thiago-jv/VOTACAO_API/blob/main/docker_compose.png)
   Arquivo docker-compose com as configurações a serem subidas no container, dessa forma disponibilizando estrutura do projeto.
+  Caso queira rodar via comando o aquivo -> docker compose up
 
  ![docker-compose](https://github.com/thiago-jv/VOTACAO_API/blob/main/containers.png)
   Com o docker rodando e os containers criado.
