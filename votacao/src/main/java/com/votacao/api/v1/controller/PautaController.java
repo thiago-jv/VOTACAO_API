@@ -52,7 +52,7 @@ public class PautaController implements Serializable, PautaControllerOpenApi {
 
     @PutMapping("/{idPauta}/habilitaVotacaoFechado")
     @Override
-    public void atualizarStatusFechado(@PathVariable Long idPauta) throws JsonProcessingException {
+    public void atualizarStatusFechado(@PathVariable Long idPauta) {
         log.info("Atualizando Status de votação para FECHADO e criando fila no rabitMQ");
         pautaService.atualizarStatusHabilitadoFechado(idPauta);
     }

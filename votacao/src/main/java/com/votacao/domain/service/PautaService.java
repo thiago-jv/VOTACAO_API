@@ -7,6 +7,7 @@ import com.votacao.domain.model.Pauta;
 import com.votacao.domain.model.Votacao;
 import com.votacao.domain.model.enuns.SimNao;
 import com.votacao.domain.repository.PautaRepository;
+import com.votacao.infra.exception.NegocioException;
 import com.votacao.infra.exception.PautaNaoEncontadoException;
 import com.votacao.infra.exception.PautaNaoHabilitadaException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,33 +30,40 @@ public class PautaService implements Serializable {
     private static Logger log = Logger.getLogger(PautaService.class.getName());
 
     public Pauta buscarOuFalhar(Long id) {
-        log.info("Realizando busca de Pauta por id: " +id);
+        log.info("Realizando busca de Pauta por id: " + id);
         return pautaRepository.findById(id).orElseThrow(() -> new PautaNaoEncontadoException(id));
     }
 
     public void atualizarStatusHabilitadoSim(Long id) {
-        log.info("Realizando atualização da pauta para SIM por id: " +id);
+        log.info("Realizando atualização da pauta para SIM por id: " + id);
         var pauta = buscarOuFalhar(id);
         pauta.setHabilitado(SimNao.SIM);
         pautaRepository.save(pauta);
     }
 
     public void atualizarStatusHabilitadoNao(Long id) {
-        log.info("Realizando atualização da pauta para NAO por id: " +id);
+        log.info("Realizando atualização da pauta para NAO por id: " + id);
         var pauta = buscarOuFalhar(id);
         pauta.setHabilitado(SimNao.NAO);
         pautaRepository.save(pauta);
     }
 
-    public void atualizarStatusHabilitadoFechado(Long id) throws JsonProcessingException {
-        log.info("Realizando verificando se Pauta está com status de Habilitada SIM, pois caso não esteja, irá lançar uma exception por id: " +id);
+    public void atualizarStatusHabilitadoFechado(Long id) {
+        log.info("Realizando verificando se Pauta está com status de Habilitada SIM para o id: " + id);
         var pauta = buscarOuFalhar(id);
-        if(pauta.getHabilitado() == SimNao.NAO) {
-             throw new PautaNaoHabilitadaException(id);
+        if (pauta.getHabilitado() == SimNao.NAO) {
+            throw new PautaNaoHabilitadaException(id);
         }
         pauta.setHabilitado(SimNao.FECHADO);
         var pautaSalva = pautaRepository.save(pauta);
-        toVotacaoProducer(pautaSalva);
+
+        try {
+            toVotacaoProducer(pautaSalva);
+        } catch (JsonProcessingException e) {
+            log.info("Lançando exception de lançamento de fila no rabitMQ " +e.getMessage());
+             throw new NegocioException(e.getMessage());
+        }
+
     }
 
     public void atualizaContagemVotoPauta(Votacao votacao, Pauta pauta) {
@@ -71,7 +79,7 @@ public class PautaService implements Serializable {
     }
 
     public void toVotacaoProducer(Pauta pauta) throws JsonProcessingException {
-        log.info("Realizando montagem da classe DTO para envior da fila ao RabiMQ por pauta: " +pauta.getId());
+        log.info("Realizando montagem da classe DTO para envior da fila ao RabiMQ por pauta: " + pauta.getId());
         ObjectMapper objectMapper = new ObjectMapper();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         var votacaoDTO = new VotacaoDTO();

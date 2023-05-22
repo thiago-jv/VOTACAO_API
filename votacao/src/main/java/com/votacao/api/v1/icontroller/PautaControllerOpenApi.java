@@ -29,7 +29,7 @@ public interface PautaControllerOpenApi {
     })
     void atualizarStatusHabilitadoNao(@PathVariable Long id);
 
-    @ApiOperation("Atualiza Pauta de Votação por status para FECHADO, com isso enviado uma fila para o rabitmq nomeada 'VOTACAO_RESULTADO'")
+    @ApiOperation("Atualiza Pauta de votação pora status de FECHADO, dessa forma criando um 'producer-fila' no rabitmq nomeada 'VOTACAO_RESULTADO'")
     @ApiResponses({
             @ApiResponse(code = 404, message = "Pauta de Votação não encontrado", response = Problema.class),
     })
