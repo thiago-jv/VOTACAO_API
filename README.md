@@ -31,6 +31,8 @@ Sistema para controle de votação em grupo de reunião
 6- mvn spring-boot:run
 ```
 
+ ![spring-boot-run](https://github.com/thiago-jv/VOTACAO_API/blob/main/runing.png)
+ Após rodar os comanda acima, caso não queira rodar via IDE.
  
 
 
