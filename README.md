@@ -6,6 +6,7 @@ Projeto para controle de votações em assembleia.
 Link de Acesso a API - Publica
 http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
 
+
 * Usabilidade dos end-points
 
 1- Realizar cadastro dos associados no end-poit /v1/associados
@@ -37,6 +38,19 @@ http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
 
 Link de Acesso a API - Local
 http://localhost:8089/votacaoapi/swagger-ui.html#/
+
+Link de Acesso RabbitMQ - Local
+http://localhost:15672/#
+
+Usuario: admin
+Senha: admin
+
+Link de Acesso phpmy-admin - Local
+http://localhost:8080/index.php?route=/
+
+Usuario: root
+Senha: my_secret_password
+
 
 # Requisitos
 
