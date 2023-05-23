@@ -6,6 +6,13 @@ Projeto para controle de votações em assembleia.
 Link de Acesso a API - Publica
 http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
 
+# Passos para conectar no banco dados mysql na AWS
+ ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/banco_de_dados_mysql_aws.png)
+  HOSTNAME: votacao-mysql.cs6cmhb8whps.us-east-1.rds.amazonaws.com
+  
+ ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/connection_sucess_mysql_aws.png)
+ ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/tabelas_mysql_aws.png)
+ 
 
 * Usabilidade dos end-points
 
