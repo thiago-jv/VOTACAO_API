@@ -30,6 +30,19 @@
         - data-mysql:/var/lib/mysql
       networks:
         - network_app
+
+    votacao-api:
+      image: votacao-api
+      environment:
+        DB_HOST: db-mysql
+      ports:
+        - "8089:8089"
+      networks:
+        - network_app
+      depends_on:
+        - db-mysql
+        - rabbitmq
+
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
       container_name: phpmy-admin
