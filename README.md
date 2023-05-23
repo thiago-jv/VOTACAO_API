@@ -16,7 +16,8 @@ http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
  ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/tabelas_mysql_aws.png)
  
 
-* Usabilidade dos end-points
+
+# Usabilidade dos end-points
 
 1- Realizar cadastro dos associados no end-poit /v1/associados
 
