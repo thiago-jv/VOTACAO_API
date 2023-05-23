@@ -2,19 +2,20 @@
 
   services:
     rabbitmq:
-      container_name: rabbitmq-data-votacao
       image: rabbitmq:3.8.3-management
+      container_name: rabbitmq
+      environment:
+         RABBITMQ_ERLANG_COOKIE: secret_pass
+         RABBITMQ_DEFAULT_USER: admin
+         RABBITMQ_DEFAULT_PASS: admin
       ports:
         - 5672:5672
         - 15672:15672
       volumes:
         - rabbitmq-data-votacao:/var/lib/rabbitmq/
-      environment:
-        - RABBITMQ_ERLANG_COOKIE=secret_pass
-        - RABBITMQ_DEFAULT_USER=admin
-        - RABBITMQ_DEFAULT_PASS=admin
       networks:
-        - network_app
+        - bridge
+      restart: always
 
     db-mysql:
       image: mysql:5.7
@@ -29,16 +30,17 @@
       volumes:
         - data-mysql:/var/lib/mysql
       networks:
-        - network_app
+        - bridge
 
     votacao-api:
       image: votacao-api
       environment:
         DB_HOST: db-mysql
+        rabbitmq: rabbitmq
       ports:
         - "8089:8089"
       networks:
-        - network_app
+        - bridge
       depends_on:
         - db-mysql
         - rabbitmq
@@ -56,12 +58,12 @@
       ports:
         - 8080:80
       networks:
-        - network_app
+        - bridge
 
   volumes:
     data-mysql:
     rabbitmq-data-votacao:
 
   networks:
-    network_app:
+    bridge:
       driver: bridge
