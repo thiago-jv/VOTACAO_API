@@ -1,12 +1,9 @@
-# VOTACAO_API
-Sistema para controle de votação em grupo de reunião
-
 # Projeto Votação em Sembleia 
 
 Projeto para controle de votações em assembleia.
 
 
-Link de Acesso a API
+Link de Acesso a API - Publica
 http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
 
 * Usabilidade dos end-points
@@ -37,6 +34,9 @@ http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
 2- dentro do path /votacao -> mvn clean package
 
 3- dentro do path /votacao -> docker compose up
+
+Link de Acesso a API - Local
+http://localhost:8089/votacaoapi/swagger-ui.html#/
 
 # Requisitos
 
@@ -93,9 +93,3 @@ nível de conhecimento e a qualidade da entrega.
 
 
 
-
-
-
- 
-
- 
