@@ -4,7 +4,7 @@ Projeto para controle de votações em assembleia.
 
 
 Link de Acesso a API - Publica
-http://54.90.117.143:8089/votacaoapi/swagger-ui.html#
+http://xx.xx.117.143:8089/votacaoapi/swagger-ui.html#
 
 
 # Usabilidade dos end-points
