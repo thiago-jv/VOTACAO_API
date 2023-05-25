@@ -32,7 +32,7 @@ http://xx.xx.117.143:8089/votacaoapi/swagger-ui.html#
 
 1- git clone https://github.com/thiago-jv/VOTACAO_API.git
 
-2- dentro do path /votacao -> mvn clean package
+2- dentro do path /votacao -> mvn package -Pdocker
 
 3- dentro do path /votacao -> docker compose up
 
