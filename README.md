@@ -46,6 +46,8 @@ http://xx.xx.117.143:8089/votacaoapi/swagger-ui.html#
 
 9- O resultado da votação pode ser visualizado na fila no rabbitMQ 'VOTACAO_RESULTADO' criado, bem como na tabela Pauta.
 
+10- Caso queira visualizar o resultado da votação no end-point /v1/pautas/{id}
+
 
 # Passos para rodar aplicação via docker-compose
 
