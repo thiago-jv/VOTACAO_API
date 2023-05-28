@@ -1,6 +1,16 @@
 # Projeto Votação em Sembleia
 
-Projeto para controle de votações em assembleia.
+Projeto para controle de votações em assembleia, utilizando os seviços da AMAZON - AWS
+
+# Serviços AWS
+Amazon RDS - MySQL no Amazon RDS
+https://aws.amazon.com/pt/rds/
+
+Amazon Elastic Container Service - ECS
+https://aws.amazon.com/pt/ec2/
+
+Amazon Elastic Container Registry - ECR
+https://aws.amazon.com/pt/ecr/
 
 
 Link de Acesso a API - Publica
@@ -27,6 +37,7 @@ http://xx.xx.117.143:8089/votacaoapi/swagger-ui.html#
 
 9- O resultado da votação pode ser visualizado na fila no rabbitMQ 'VOTACAO_RESULTADO' criado, bem como na tabela Pauta.
 
+10- Caso queira visualizar o resultado da votação no end-point /v1/pautas/{id}
 
 # Passos para rodar aplicação via docker-compose
 
