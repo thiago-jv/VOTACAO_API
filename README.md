@@ -2,7 +2,7 @@
 
 Projeto para controle de votações em assembleia, utilizando os seviços da AMAZON - AWS
 
-# Serviços
+# Serviços AWS
 Amazon RDS - MySQL no Amazon RDS
 https://aws.amazon.com/pt/rds/
 
