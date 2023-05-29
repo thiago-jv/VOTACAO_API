@@ -5,12 +5,15 @@ Projeto para controle de votações em assembleia, utilizando os seviços da AMA
 
 # Serviços AWS
 Amazon RDS - MySQL no Amazon RDS - Onde irá roda nossa instancia do mysql
+
 https://aws.amazon.com/pt/rds/
 
 Amazon Elastic Container Service - ECS - Onde irá ser orquestrado nosso container utilizando SERVLEES = Aplicação sem Servidor
+
 https://aws.amazon.com/pt/ec2/
 
 Amazon Elastic Container Registry - ECR - Onde irá ter a imagem da aplicação criada com o DOCKER
+
 https://aws.amazon.com/pt/ecr/
 
 Link de Acesso a API - Publica
