@@ -1,6 +1,7 @@
 # Projeto Votação em Sembleia 
 
-Projeto para controle de votações em assembleia, utilizando os seviços da AMAZON - AWS
+Projeto para controle de votações em assembleia, utilizando os seviços da AMAZON - AWS, utilizando SpringBoot, SpringData, Maven, mysql, Docker compose, MapStruct, DTO - Data Transfer Object, Design Patterns, lombok, mensageria com rabbitmq, restassured, Logger, Patterns Reposiroty, Junit, Swagger-API, Clean Code e mais. 
+
 
 # Serviços AWS
 Amazon RDS - MySQL no Amazon RDS
