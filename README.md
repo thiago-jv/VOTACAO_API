@@ -16,20 +16,6 @@ Amazon Elastic Container Registry - ECR - Onde irá ter a imagem da aplicação 
 
 https://aws.amazon.com/pt/ecr/
 
-Link de Acesso a API - Publica
-http://xx.xx.117.143:8089/votacaoapi/swagger-ui.html#
-
-# Passos para conectar no banco dados mysql na AWS
- ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/banco_de_dados_mysql_aws.png)
-  HOSTNAME: votacao-mysql.cs6cmhb8whps.us-east-1.rds.amazonaws.com
-  PASSWORD: my_secret_password
-  
-  
- ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/connection_sucess_mysql_aws.png)
- ![workbeanch](https://github.com/thiago-jv/VOTACAO_API/blob/main/tabelas_mysql_aws.png)
- 
-
-
 # Usabilidade dos end-points
 
 1- Realizar cadastro dos associados no end-poit /v1/associados
@@ -88,8 +74,7 @@ Senha: my_secret_password
 
 # Considerações
 
-* Não foi possível subir o serviço do RabbitQM na AWS, porem o projeto local está funcionando.
-* O projeto foi desenvolvido levando em consideração os requisitos solicitados abaixo.
+* Não foi possível subir o serviço do RabbitQM na AWS, porem o projeto local está funcionando
 
 
                                                          Desafio Técnico
