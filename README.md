@@ -72,10 +72,6 @@ Senha: my_secret_password
 3- Instalar docker 4.6.1 ou superior compativel.
 
 
-# Considerações
-
-* Não foi possível subir o serviço do RabbitQM na AWS, porem o projeto local está funcionando
-
 
                                                          Desafio Técnico
 Objetivo
