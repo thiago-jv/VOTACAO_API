@@ -43,9 +43,7 @@ https://aws.amazon.com/pt/ecr/
 
 1- git clone https://github.com/thiago-jv/VOTACAO_API.git
 
-2- dentro do path /votacao -> mvn package -Pdocker 
-
-3- dentro do path /votacao -> docker compose up
+2- dentro do path /votacao -> docker compose up --build backend 
 
 Link de Acesso a API - Local
 http://localhost:8089/votacaoapi/swagger-ui.html#/
@@ -62,6 +60,7 @@ http://localhost:8080/index.php?route=/
 Usuario: root
 Senha: my_secret_password
 
+![swagger](https://github.com/thiago-jv/VOTACAO_API/blob/main/swagger.png)
 
 # Requisitos
 
