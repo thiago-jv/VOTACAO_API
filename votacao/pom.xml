@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>votacao</groupId>
-    <artifactId>votacao</artifactId>
+    <artifactId>app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>votacao</name>
     <description>Sistema para controle de votação</description>
     <properties>
@@ -104,6 +104,7 @@
     </dependencies>
 
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -150,7 +151,6 @@
     <profiles>
         <profile>
             <id>docker</id>
-
             <build>
                 <plugins>
                     <plugin>
@@ -169,7 +169,7 @@
                         <configuration>
                             <repository>votacao-api</repository>
                             <buildArgs>
-                                <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                                <JAR_FILE>app.war</JAR_FILE>
                             </buildArgs>
                         </configuration>
                     </plugin>
