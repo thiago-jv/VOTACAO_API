@@ -1,20 +1,20 @@
   version: "3.2"
 
   services:
-    backend:
-      container_name: backend
-      restart: always
-      build: .
-      environment:
-        DB_HOST: db-mysql
-        rabbitmq: rabbitmq
-      ports:
-        - "8089:8089"
-      networks:
-        - bridge
-      depends_on:
-        - db-mysql
-        - rabbitmq
+#    backend:
+#      container_name: backend
+#      restart: always
+#      build: .
+#      environment:
+#        DB_HOST: db-mysql
+#        rabbitmq: rabbitmq
+#      ports:
+#        - "8089:8089"
+#      networks:
+#        - bridge
+#      depends_on:
+#        - db-mysql
+#        - rabbitmq
 
     rabbitmq:
       image: rabbitmq:3.8.3-management
