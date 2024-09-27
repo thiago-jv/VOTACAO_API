@@ -1,12 +1,9 @@
 pipeline {
     agent any
-    environment {
-        MAVEN_HOME = '/usr/share/maven'
-    }
     stages {
-        stage('Build Backend') {
+        stage ('Build Backend'){
             steps {
-                  sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests"
+                sh 'mvn clean package'
             }
         }
     }
