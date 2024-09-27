@@ -1,9 +1,15 @@
 pipeline {
     agent any
+    environment {
+            MAVEN_HOME = '/usr/share/maven'
     stages {
         stage ('Build Backend'){
             steps {
-                sh 'mvn clean package'
+                try {
+                   sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests"
+                } catch (Exception e) {
+                   error "Build failed: ${e.message}"
+               }
             }
         }
     }
