@@ -6,11 +6,7 @@ pipeline {
     stages {
         stage('Build Backend') {
             steps {
-                try {
-                    sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests"
-                } catch (Exception e) {
-                    error "Build failed: ${e.message}"
-                }
+                  sh "${MAVEN_HOME}/bin/mvn clean package -DskipTests"
             }
         }
     }
