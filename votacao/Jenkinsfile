@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Build Backend'){
             steps {
-                sh '/var/lib/jenkins/workspace/Pipeline/votacao/pom.xml mvn clean package -DskipTests=true'
+                sh './votacao/pom.xml mvn clean package -DskipTests=true'
             }
         }
     }
