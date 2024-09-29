@@ -1,9 +1,15 @@
 pipeline {
     agent any
+    environment {
+        MVN_HOME = '/usr/share/maven' // Replace with actual path
+    }
     stages {
+        stage ('Preparation'){
+                git 'https://github.com/thiago-jv/VOTACAO_API.git'
+        }
         stage ('Build Backend'){
             steps {
-                sh '../pom.xml mvn clean package'
+                sh 'mvn clean package' // Assuming Maven is in PATH
             }
         }
     }
