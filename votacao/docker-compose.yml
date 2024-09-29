@@ -1,20 +1,20 @@
   version: "3.2"
 
   services:
-#    backend:
-#      container_name: backend
-#      restart: always
-#      build: .
-#      environment:
-#        DB_HOST: db-mysql
-#        rabbitmq: rabbitmq
-#      ports:
-#        - "8089:8089"
-#      networks:
-#        - bridge
-#      depends_on:
-#        - db-mysql
-#        - rabbitmq
+    backend:
+      container_name: backend
+      restart: always
+      build: .
+      environment:
+        DB_HOST: db-mysql
+        rabbitmq: rabbitmq
+      ports:
+        - "8089:8089"
+      networks:
+        - bridge
+      depends_on:
+        - db-mysql
+        - rabbitmq
 
     rabbitmq:
       image: rabbitmq:3.8.3-management
@@ -44,21 +44,6 @@
         - "3306:3306"
       volumes:
         - data-mysql:/var/lib/mysql
-      networks:
-        - bridge
-
-    phpmyadmin:
-      image: phpmyadmin/phpmyadmin
-      container_name: phpmy-admin
-      links:
-        - db-mysql
-      environment:
-        PMA_HOST: db-mysql
-        PMA_PORT: 3306
-        PMA_ARBITRARY: 1
-      restart: always
-      ports:
-        - 8080:80
       networks:
         - bridge
 
