@@ -5,11 +5,13 @@ pipeline {
     }
     stages {
         stage ('Preparation'){
-                git 'https://github.com/thiago-jv/VOTACAO_API.git'
+            steps {
+                git 'https://github.com/thiago-jv/VOTACAO_API.git' // Assuming Maven is in PATH
+            }
         }
         stage ('Build Backend'){
             steps {
-                sh 'mvn clean package' // Assuming Maven is in PATH
+                sh 'mvn clean package'
             }
         }
     }
