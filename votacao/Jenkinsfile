@@ -12,5 +12,15 @@ pipeline {
                }
             }
         }
+    stage ('Sonnar Analysis'){
+        environment {
+         scannerHome = tool 'SONAR_SCANNER'
+        }
+        steps {
+            withSonarQubeEnv('SONNAR_LOCAL')
+            sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBackEnd -Dsonar.host.url=http://localhost:9000 -Dsonar.login=15b62d87de7671cbe35d0d17d6653bd86207b8ae -Dsonar.java.binaries=./"
+           }
+        }
+       }
     }
 }
