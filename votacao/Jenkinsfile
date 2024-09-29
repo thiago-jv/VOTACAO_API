@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ('Preparation'){
             steps {
-                git 'https://github.com/thiago-jv/VOTACAO_API.git' // Assuming Maven is in PATH
+                git branch: 'main', credentialsId: 'GIT', url: 'https://github.com/thiago-jv/VOTACAO_API.git'
             }
         }
         stage ('Build Backend'){
