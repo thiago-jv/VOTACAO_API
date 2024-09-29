@@ -1,26 +1,29 @@
 pipeline {
     agent any
     environment {
-        MVN_HOME = '/usr/share/maven' // Replace with actual path
+        MVN_HOME = '/usr/share/maven'
+        SONAR_QUBE_URL = 'http://localhost:9000'
+        SONAR_QUBE_TOKEN = '15b62d87de7671cbe35d0d17d6653bd86207b8ae'
     }
     stages {
-        stage ('Preparation'){
+        stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'GIT', url: 'https://github.com/thiago-jv/VOTACAO_API.git'
-                dir('votacao') {
-                sh 'mvn clean package'
-               }
             }
         }
-    stage ('Sonnar Analysis'){
-        environment {
-         scannerHome = tool 'SONAR_SCANNER'
+        stage('Build') {
+            steps {
+                dir('votacao') {
+                    sh 'mvn clean package'
+                }
+            }
         }
-        steps {
-            withSonarQubeEnv('SONNAR_LOCAL')
-            sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBackEnd -Dsonar.host.url=http://localhost:9000 -Dsonar.login=15b62d87de7671cbe35d0d17d6653bd86207b8ae -Dsonar.java.binaries=./"
-           }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SONAR_LOCAL') {
+                    sh "${tool 'SONAR_SCANNER'}/bin/sonar-scanner -Dsonar.projectKey=DeployBackEnd -Dsonar.host.url=${env.SONAR_QUBE_URL} -Dsonar.login=${env.SONAR_QUBE_TOKEN} -Dsonar.java.binaries=./"
+                }
+            }
         }
-       }
     }
 }
