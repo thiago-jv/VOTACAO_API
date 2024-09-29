@@ -7,7 +7,7 @@ pipeline {
         stage ('Preparation'){
             steps {
                 git branch: 'main', credentialsId: 'GIT', url: 'https://github.com/thiago-jv/VOTACAO_API.git'
-                dir('votacao') { // Se o pom.xml estiver em um subdiretório
+                dir('votacao') {
                 sh 'mvn clean package'
                }
             }
