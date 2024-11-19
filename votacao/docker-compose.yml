@@ -1,53 +1,54 @@
   services:
-    backend:
-      container_name: backend
-      restart: always
-      build: .
-      environment:
-        DB_HOST: db-mysql
-        rabbitmq: rabbitmq
-      ports:
-        - "8089:8089"
-      networks:
-        - bridge
-      depends_on:
-        - db-mysql
-        - rabbitmq
+#    backend:
+#      container_name: backend
+#      restart: always
+#      build: .
+#      environment:
+#        DB_HOST: db-mysql
+#        rabbitmq: rabbitmq
+#      ports:
+#        - "8089:8089"
+#      networks:
+#        - bridge
+#      depends_on:
+#        - db-postgresql
+#        - rabbitmq
 
-    rabbitmq:
-      image: rabbitmq:3.8.3-management
-      container_name: rabbitmq
-      environment:
-         RABBITMQ_ERLANG_COOKIE: secret_pass
-         RABBITMQ_DEFAULT_USER: admin
-         RABBITMQ_DEFAULT_PASS: admin
-      ports:
-        - 5672:5672
-        - 15672:15672
-      volumes:
-        - rabbitmq-data-votacao:/var/lib/rabbitmq/
-      networks:
-        - bridge
-      restart: always
+#    rabbitmq:
+#      image: rabbitmq:3.8.3-management
+#      container_name: rabbitmq
+#      environment:
+#         RABBITMQ_ERLANG_COOKIE: secret_pass
+#         RABBITMQ_DEFAULT_USER: admin
+#         RABBITMQ_DEFAULT_PASS: admin
+#      ports:
+#        - 5672:5672
+#        - 15672:15672
+#      volumes:
+#        - rabbitmq-data-votacao:/var/lib/rabbitmq/
+#      networks:
+#        - bridge
+#      restart: always
 
-    db-mysql:
-      image: mysql:5.7
-      container_name: db-mysql
-      environment:
-        MYSQL_ROOT_PASSWORD: my_secret_password
-        MYSQL_DATABASE: app_votacao
-        MYSQL_USER: db_user
-        MYSQL_PASSWORD: db_user_pass
-      ports:
-        - "3306:3306"
-      volumes:
-        - data-mysql:/var/lib/mysql
-      networks:
-        - bridge
+   db-postgresql:
+    container_name: db-postgresql
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=dbvotacao
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - bridge
+
 
   volumes:
-    data-mysql:
-    rabbitmq-data-votacao:
+    pgdata:
+#    rabbitmq-data-votacao:
 
   networks:
     bridge:

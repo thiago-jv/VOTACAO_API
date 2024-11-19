@@ -14,9 +14,7 @@ public class VotacaoResponseDTO implements Serializable {
 
     private Long id;
     private SimNao voto;
-
     private PautaIdDTO pauta;
-
     private AssociadoIdDTO associado;
 
 }

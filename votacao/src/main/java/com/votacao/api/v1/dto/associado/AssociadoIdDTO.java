@@ -12,4 +12,11 @@ public class AssociadoIdDTO implements Serializable {
 
     @ApiModelProperty(value = "Código do Associado", example = "1", required = true)
     private Long id;
+
+    public AssociadoIdDTO() {
+    }
+
+    public AssociadoIdDTO(Long id) {
+        this.id = id;
+    }
 }

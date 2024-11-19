@@ -1,6 +1,6 @@
 package com.votacao.infra.exception;
 
-public class VotacaoAssociadoEncontadoException extends EntidadeNaoEncontradaException {
+public class VotacaoAssociadoEncontadoException extends EntidadeEmUsoException {
 
 	/**
 	 *

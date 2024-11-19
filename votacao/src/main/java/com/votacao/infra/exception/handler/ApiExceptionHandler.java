@@ -1,6 +1,7 @@
 package com.votacao.infra.exception.handler;
 
 
+import com.votacao.infra.exception.EntidadeEmUsoException;
 import com.votacao.infra.exception.EntidadeNaoEncontradaException;
 import com.votacao.infra.exception.NegocioException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @ControllerAdvice
@@ -57,5 +62,40 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .detail(detail);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
+
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        TipoProblema tipoProblema = TipoProblema.DADOS_INVALIDOS;
+        String detail = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.";
+
+        List<Problema.Campo> errors = new ArrayList<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            Problema.Campo campo = new Problema.Campo(violation.getPropertyPath().toString(), violation.getMessage());
+            errors.add(campo);
+        }
+
+        Problema problema = createProblemaBuilder(status, tipoProblema, detail)
+                .mensagemUsuario(detail)
+                .campos(errors)
+                .build();
+
+        return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(EntidadeEmUsoException.class)
+    public ResponseEntity<?> tratarEntidadeEmUsoException(
+            EntidadeEmUsoException ex, WebRequest request) {
+
+        HttpStatus status = HttpStatus.CONFLICT;
+        TipoProblema tipoProblema = TipoProblema.ENTIDADE_EM_USO;
+
+        Problema problema = createProblemaBuilder(status, tipoProblema, ex.getMessage())
+                .mensagemUsuario(ex.getMessage())
+                .build();
+
+        return handleExceptionInternal(ex, problema, new HttpHeaders(),
+                status, request);
+    }
 
 }

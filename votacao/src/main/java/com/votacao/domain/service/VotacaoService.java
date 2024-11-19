@@ -1,8 +1,10 @@
 package com.votacao.domain.service;
 
 import com.votacao.domain.model.Votacao;
+import com.votacao.domain.model.enuns.SimNao;
 import com.votacao.domain.repository.PautaRepository;
 import com.votacao.domain.repository.VotacaoRepository;
+import com.votacao.infra.exception.EntidadeNaoEncontradaException;
 import com.votacao.infra.exception.PautaNaoHabilitadaException;
 import com.votacao.infra.exception.VotacaoAssociadoEncontadoException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,34 +33,64 @@ public class VotacaoService implements Serializable {
     private static Logger log = Logger.getLogger(VotacaoService.class.getName());
 
     public List<Votacao> lancamentoVotacao(Votacao votacao) {
+        log.info("Iniciando o lançamento de voto para a pauta.");
+
+        validarAssociado(votacao);
+
+        validarPauta(votacao);
+
+        validarVoto(votacao);
+
         Long idPauta = votacao.getPauta().getId();
-        log.info("Realizando lançamento para a Pauta: " +idPauta);
 
         var pauta = pautaRepository.listaPautaPorIdAndStatusHabilitaVotoSim(idPauta);
 
-        if (Objects.isNull(pauta)) {
-            log.info("Validando se Pauta está habilitada SIM");
+        if (!pauta.getHabilitado().equals(SimNao.SIM)) {
+            log.warning("Pauta com ID {} não está habilitada para votação ou não encontrada.");
             throw new PautaNaoHabilitadaException(idPauta);
         }
-        if (Objects.nonNull(idPauta)) {
-            log.info("Validando se Associado está tentando votar mais de uma vez");
-            validaVotoDuplicado(votacao, idPauta);
-        }
+
+        log.info("Verificando se o associado já votou na pauta com ID {}.");
+        validaVotoDuplicado(votacao, idPauta);
+
         var associado = associadoService.buscarOuFalhar(votacao.getAssociado().getId());
         votacao.setPauta(pauta);
         votacao.setAssociado(associado);
+
         var votacaoSalva = votacaoRepository.save(votacao);
+
         pautaService.atualizaContagemVotoPauta(votacaoSalva, pauta);
+
         return getLocacaoPauta(votacaoSalva.getPauta().getId());
     }
 
+    private void validarAssociado(Votacao votacao) {
+        if (Objects.isNull(votacao.getAssociado()) || Objects.isNull(votacao.getAssociado().getId())) {
+            log.warning("Associado não informado ou inválido.");
+            throw new EntidadeNaoEncontradaException("Favor informar um associado.");
+        }
+    }
+
+    private void validarPauta(Votacao votacao) {
+        if (Objects.isNull(votacao.getPauta()) || Objects.isNull(votacao.getPauta().getId())) {
+            log.warning("Pauta não informada ou inválida.");
+            throw new EntidadeNaoEncontradaException("Favor informar uma pauta.");
+        }
+    }
+
+    private void validarVoto(Votacao votacao) {
+        if (Objects.isNull(votacao.getVoto())) {
+            log.warning("Voto não informado ou inválida.");
+            throw new EntidadeNaoEncontradaException("Favor informar um voto.");
+        }
+    }
+
     private void validaVotoDuplicado(Votacao votacao, Long idPauta) {
-        List<Votacao> votacaosLancadas = getLocacaoPauta(idPauta);
-        if (!votacaosLancadas.isEmpty()) {
-            for (Votacao votoAssociado : votacaosLancadas) {
-                if (votoAssociado.getAssociado().getId().equals(votacao.getAssociado().getId())) {
-                    throw new VotacaoAssociadoEncontadoException(votoAssociado.getAssociado().getId());
-                }
+        List<Votacao> votacoesLancadas = getLocacaoPauta(idPauta);
+        for (Votacao votoAssociado : votacoesLancadas) {
+            if (votoAssociado.getAssociado().getId().equals(votacao.getAssociado().getId())) {
+                log.info("Associado com ID {} já votou na pauta com ID {}.");
+                throw new VotacaoAssociadoEncontadoException(votoAssociado.getAssociado().getId());
             }
         }
     }
@@ -66,5 +98,4 @@ public class VotacaoService implements Serializable {
     private List<Votacao> getLocacaoPauta(Long idPauta) {
         return votacaoRepository.listaVotacaoPorId(idPauta);
     }
-
 }

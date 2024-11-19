@@ -7,14 +7,9 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class AssociadoResponseDTO implements Serializable {
+public class AssociadoPutDTO implements Serializable {
 
     private Long id;
     private String nome;
-
-    public AssociadoResponseDTO(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
 
 }

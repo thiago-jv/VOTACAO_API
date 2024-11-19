@@ -21,7 +21,8 @@ public class Pauta implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pauta_seq")
+    @SequenceGenerator(name = "pauta_seq", sequenceName = "pauta_seq", initialValue = 1, allocationSize = 1)
     @Column(name = "ID", nullable = false, unique = true)
     private Long id;
 
@@ -47,4 +48,7 @@ public class Pauta implements Serializable {
     @Column(name = "DATA_PAUTA", nullable = false)
     private LocalDateTime dataEntrada = LocalDateTime.now();
 
+    public Pauta(String descricao) {
+        this.descricao = descricao;
+    }
 }

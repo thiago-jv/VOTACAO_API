@@ -27,7 +27,7 @@ public class VotacaoController implements Serializable, VotacaoControllerOpenApi
 
     @PostMapping
     @Override
-    public List<VotacaoResponseDTO> lancamentoVotacao(@RequestBody VotacaoPostDTO votacaoPostDTO) {
+    public List<VotacaoResponseDTO> criarVotacao(@RequestBody VotacaoPostDTO votacaoPostDTO) {
         log.info("Iniciando Criação de Votação");
         return votacaoMapper.toVotacaoResponseDTO(votacaoService.lancamentoVotacao(votacaoMapper.toVotacao(votacaoPostDTO)));
     }

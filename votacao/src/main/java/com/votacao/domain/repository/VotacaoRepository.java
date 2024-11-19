@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface VotacaoRepository extends JpaRepository<Votacao, Long> {
+
     @Query("select v from Votacao v inner join fetch v.associado a inner join fetch v.pauta p where p.id = :pIdPauta")
     List<Votacao> listaVotacaoPorId(@Param("pIdPauta") Long pIdPauta);
+
 }

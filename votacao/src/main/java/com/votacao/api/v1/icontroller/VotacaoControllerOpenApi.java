@@ -13,6 +13,6 @@ public interface VotacaoControllerOpenApi {
     @ApiResponses({
             @ApiResponse(code = 201, message = "Sessão de votação, onde seram lançados os votos e todo o processo enquanto durar a sessão controlada pela PAUTA"),
     })
-    List<VotacaoResponseDTO> lancamentoVotacao(
+    List<VotacaoResponseDTO> criarVotacao(
             @ApiParam(name = "corpo", value = "Representação de uma votação") VotacaoPostDTO votacaoPostDTO);
 }

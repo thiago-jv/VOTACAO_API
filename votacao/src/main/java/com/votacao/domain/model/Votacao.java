@@ -19,7 +19,8 @@ public class Votacao implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "votacao_seq")
+    @SequenceGenerator(name = "votacao_seq", sequenceName = "votacao_seq", initialValue = 1, allocationSize = 1)
     @Column(name = "ID", nullable = false, unique = true)
     private Long id;
 

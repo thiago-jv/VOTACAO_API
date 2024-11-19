@@ -17,9 +17,11 @@ import java.io.Serializable;
 @Table(name = "ASSOCIADO", schema = "public")
 public class Associado implements Serializable {
 
+
     @Id
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "associado_seq")
+    @SequenceGenerator(name = "associado_seq", sequenceName = "associado_seq", initialValue = 1, allocationSize = 1)
     @Column(name = "ID", nullable = false, unique = true)
     private Long id;
 

@@ -12,4 +12,11 @@ public class PautaIdDTO implements Serializable {
 
     @ApiModelProperty(value = "Código da Pauta", example = "1", required = true)
     private Long id;
+
+    public PautaIdDTO() {
+    }
+
+    public PautaIdDTO(Long id) {
+        this.id = id;
+    }
 }
