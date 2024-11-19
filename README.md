@@ -2,19 +2,7 @@
 
 Projeto para controle de votações em assembleia, utilizando os seviços da AMAZON - AWS, utilizando SpringBoot, SpringData, Maven, mysql, Docker compose, MapStruct, DTO - Data Transfer Object, Design Patterns, lombok, mensageria com rabbitmq, restassured, Logger, Patterns Reposiroty, Junit, Swagger-API, Clean Code e mais. 
 
-
-# Serviços AWS
-Amazon RDS - MySQL no Amazon RDS - Onde irá roda nossa instancia do mysql
-
-https://aws.amazon.com/pt/rds/
-
-Amazon Elastic Container Service - ECS - Onde irá ser orquestrado nosso container utilizando SERVLEES = Aplicação sem Servidor
-
-https://aws.amazon.com/pt/ec2/
-
-Amazon Elastic Container Registry - ECR - Onde irá ter a imagem da aplicação criada com o DOCKER
-
-https://aws.amazon.com/pt/ecr/
+# Frontend do projeto -> https://github.com/thiago-jv/VOTACAO-UI
 
 # Usabilidade dos end-points
 
@@ -53,12 +41,6 @@ http://localhost:15672/#
 
 Usuario: admin
 Senha: admin
-
-Link de Acesso phpmy-admin - Local
-http://localhost:8080/index.php?route=/
-
-Usuario: root
-Senha: my_secret_password
 
 ![swagger](https://github.com/thiago-jv/VOTACAO_API/blob/main/swagger.png)
 
