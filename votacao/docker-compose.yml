@@ -1,36 +1,20 @@
-  services:
-#    backend:
-#      container_name: backend
-#      restart: always
-#      build: .
-#      environment:
-#        DB_HOST: db-mysql
-#        rabbitmq: rabbitmq
-#      ports:
-#        - "8089:8089"
-#      networks:
-#        - bridge
-#      depends_on:
-#        - db-postgresql
-#        - rabbitmq
+services:
+  backend:
+      container_name: backend
+      restart: always
+      build: .
+      environment:
+        DB_HOST: db-postgresql
+#       rabbitmq: rabbitmq
+      ports:
+        - "8089:8089"
+      networks:
+        - bridge
+      depends_on:
+        - db-postgresql
+#       - rabbitmq
 
-#    rabbitmq:
-#      image: rabbitmq:3.8.3-management
-#      container_name: rabbitmq
-#      environment:
-#         RABBITMQ_ERLANG_COOKIE: secret_pass
-#         RABBITMQ_DEFAULT_USER: admin
-#         RABBITMQ_DEFAULT_PASS: admin
-#      ports:
-#        - 5672:5672
-#        - 15672:15672
-#      volumes:
-#        - rabbitmq-data-votacao:/var/lib/rabbitmq/
-#      networks:
-#        - bridge
-#      restart: always
-
-   db-postgresql:
+  db-postgresql:
     container_name: db-postgresql
     image: postgres
     restart: always
@@ -45,11 +29,27 @@
     networks:
       - bridge
 
+  #    rabbitmq:
+  #      image: rabbitmq:3.8.3-management
+  #      container_name: rabbitmq
+  #      environment:
+  #         RABBITMQ_ERLANG_COOKIE: secret_pass
+  #         RABBITMQ_DEFAULT_USER: admin
+  #         RABBITMQ_DEFAULT_PASS: admin
+  #      ports:
+  #        - 5672:5672
+  #        - 15672:15672
+  #      volumes:
+  #        - rabbitmq-data-votacao:/var/lib/rabbitmq/
+  #      networks:
+  #        - bridge
+  #      restart: always
 
-  volumes:
-    pgdata:
-#    rabbitmq-data-votacao:
 
-  networks:
-    bridge:
-      driver: bridge
+volumes:
+  pgdata:
+# rabbitmq-data-votacao:
+
+networks:
+  bridge:
+   driver: bridge
