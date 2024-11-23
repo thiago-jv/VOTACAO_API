@@ -91,8 +91,6 @@ Usuario: admin
 Senha: admin
 ```
 
-![swagger](https://github.com/thiago-jv/VOTACAO_API/blob/main/swagger.png)
-
 # Requisitos
 ```
 1- Instalar ou configura manven 3.8.7 ou superior compativel.
