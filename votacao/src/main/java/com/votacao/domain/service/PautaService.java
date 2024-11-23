@@ -13,9 +13,7 @@ import com.votacao.domain.model.Votacao;
 import com.votacao.domain.model.enuns.SimNao;
 import com.votacao.domain.repository.PautaAssociadoRepository;
 import com.votacao.domain.repository.PautaRepository;
-import com.votacao.domain.repository.VotacaoRepository;
 import com.votacao.infra.exception.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,20 +25,20 @@ import java.util.logging.Logger;
 @Service
 public class PautaService implements Serializable {
 
-    @Autowired
     private PautaRepository pautaRepository;
 
-    @Autowired
     private VotacaoProducerService votacaoProducerService;
 
-    @Autowired
     private AssociadoService associadoService;
 
-    @Autowired
     private PautaAssociadoRepository pautaAssociadoRepository;
 
-    @Autowired
-    private VotacaoRepository votacaoRepository;
+    public PautaService(PautaRepository pautaRepository, VotacaoProducerService votacaoProducerService, AssociadoService associadoService, PautaAssociadoRepository pautaAssociadoRepository) {
+        this.pautaRepository = pautaRepository;
+        this.votacaoProducerService = votacaoProducerService;
+        this.associadoService = associadoService;
+        this.pautaAssociadoRepository = pautaAssociadoRepository;
+    }
 
     private static Logger log = Logger.getLogger(PautaService.class.getName());
 
@@ -87,15 +85,8 @@ public class PautaService implements Serializable {
             throw new PautaFechadaException(id);
         }
         pauta.setHabilitado(SimNao.FECHADO);
-        pautaRepository.save(pauta);
-
-//        try {
-//            toVotacaoProducer(pautaSalva);
-//            log.info("Pauta enviada para o RabbitMQ com sucesso, id: " + pautaSalva.getId());
-//        } catch (JsonProcessingException e) {
-//            log.severe("Erro ao tentar enviar a pauta para o RabbitMQ. Id: " + pautaSalva.getId() + ", erro: " + e.getMessage());
-//        }
-
+        var pautaSalva = pautaRepository.save(pauta);
+         toVotacaoProducer(pautaSalva);
     }
 
     public void atualizaContagemVotoPauta(Votacao votacao, Pauta pauta) {
@@ -110,7 +101,7 @@ public class PautaService implements Serializable {
         pautaRepository.save(pauta);
     }
 
-    public void toVotacaoProducer(Pauta pauta) throws JsonProcessingException {
+    public void toVotacaoProducer(Pauta pauta) {
         log.info("Realizando montagem da classe DTO para envior da fila ao RabiMQ por pauta: " + pauta.getId());
         ObjectMapper objectMapper = new ObjectMapper();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -121,7 +112,11 @@ public class PautaService implements Serializable {
         votacaoDTO.setTotal(String.valueOf(pauta.getTotalVoto()));
         votacaoDTO.setPauta(pauta.getDescricao());
         votacaoDTO.setDataVotacao(formatter.format(pauta.getDataEntrada()));
-        votacaoProducerService.sendMessage(objectMapper.writeValueAsString(votacaoDTO));
+        try {
+            votacaoProducerService.sendMessage(objectMapper.writeValueAsString(votacaoDTO));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Transactional

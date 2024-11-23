@@ -7,7 +7,6 @@ import com.votacao.domain.repository.VotacaoRepository;
 import com.votacao.infra.exception.EntidadeNaoEncontradaException;
 import com.votacao.infra.exception.PautaNaoHabilitadaException;
 import com.votacao.infra.exception.VotacaoAssociadoEncontadoException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -18,17 +17,20 @@ import java.util.logging.Logger;
 @Service
 public class VotacaoService implements Serializable {
 
-    @Autowired
     private VotacaoRepository votacaoRepository;
 
-    @Autowired
     private PautaRepository pautaRepository;
 
-    @Autowired
     private PautaService pautaService;
 
-    @Autowired
     private AssociadoService associadoService;
+
+    public VotacaoService(VotacaoRepository votacaoRepository, PautaRepository pautaRepository, PautaService pautaService, AssociadoService associadoService) {
+        this.votacaoRepository = votacaoRepository;
+        this.pautaRepository = pautaRepository;
+        this.pautaService = pautaService;
+        this.associadoService = associadoService;
+    }
 
     private static Logger log = Logger.getLogger(VotacaoService.class.getName());
 

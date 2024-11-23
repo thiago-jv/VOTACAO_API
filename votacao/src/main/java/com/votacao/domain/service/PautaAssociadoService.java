@@ -5,7 +5,6 @@ import com.votacao.api.v1.dto.pauta.PautaAssociadoResponseDTO;
 import com.votacao.domain.model.PautaAssociado;
 import com.votacao.domain.repository.PautaAssociadoRepository;
 import com.votacao.infra.exception.PautaNaoEncontadoException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,10 +15,13 @@ import java.util.logging.Logger;
 @Service
 public class PautaAssociadoService {
 
-    @Autowired
     private PautaAssociadoRepository pautaAssociadoRepository;
 
     private static Logger log = Logger.getLogger(PautaAssociadoService.class.getName());
+
+    public PautaAssociadoService(PautaAssociadoRepository pautaAssociadoRepository) {
+        this.pautaAssociadoRepository = pautaAssociadoRepository;
+    }
 
     public PautaAssociadoResponseDTO obterPautasAssociadas(Long pautaId) {
         List<PautaAssociado> pautasAssociadas = buscarOuFalhar(pautaId);

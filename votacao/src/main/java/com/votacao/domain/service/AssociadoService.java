@@ -5,7 +5,6 @@ import com.votacao.domain.repository.AssociadoRepository;
 import com.votacao.infra.exception.AssociadoNaoEncontadoException;
 import com.votacao.infra.exception.EntidadeEmUsoException;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,12 @@ import static java.lang.String.*;
 @Service
 public class AssociadoService implements Serializable {
 
-    @Autowired
+
     private AssociadoRepository associadoRepository;
+
+    public AssociadoService(AssociadoRepository associadoRepository) {
+        this.associadoRepository = associadoRepository;
+    }
 
     public Associado buscarOuFalhar(Long id) {
         return associadoRepository.findById(id).orElseThrow(() -> new AssociadoNaoEncontadoException(id));
