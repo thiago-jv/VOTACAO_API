@@ -1,78 +1,5 @@
 # Projeto Votação em Sembleia 
 
-Projeto para controle de votações em assembleia, utilizando os seviços da AMAZON - AWS, utilizando SpringBoot, SpringData, Maven, mysql, Docker compose, MapStruct, DTO - Data Transfer Object, Design Patterns, lombok, mensageria com rabbitmq, restassured, Logger, Patterns Reposiroty, Junit, Swagger-API, Clean Code e mais. 
-
-
-# Serviços AWS
-Amazon RDS - MySQL no Amazon RDS - Onde irá roda nossa instancia do mysql
-
-https://aws.amazon.com/pt/rds/
-
-Amazon Elastic Container Service - ECS - Onde irá ser orquestrado nosso container utilizando SERVLEES = Aplicação sem Servidor
-
-https://aws.amazon.com/pt/ec2/
-
-Amazon Elastic Container Registry - ECR - Onde irá ter a imagem da aplicação criada com o DOCKER
-
-https://aws.amazon.com/pt/ecr/
-
-# Usabilidade dos end-points
-
-1- Realizar cadastro dos associados no end-poit /v1/associados
-
-2- Realizar cadastro da Pauta no end-point /v1/pautas
-
-3- Após ter realizado cadastro de uma Pauta, deve ser habilitada para votação no end-poits /v1/pautas/{idPauta}/habilitaVotacaoSim
-
-4- Após Pauta habilitada, realizar votação no end-poit /v1/votacoes
-
-5- Caso queira parar votação, desabilitar no end-point /v1/pautas/{idPauta}/habilitaVotacaoNao
-
-6- Caso queira fechar a votação utilizar end-point /v1/pautas/{idPauta}/habilitaVotacaoFechado
-
-7- Após votação ser fechada no end-point /v1/pautas/{idPauta}/habilitaVotacaoFechado um producer é criado e enviado para a fila 'VOTACAO_RESULTADO' no rabbitMQ. 
-
-8- Para uma votação ser enviada ao rabbitMQ, habilitar status SIM no end-point /v1/pautas/{idPauta}/habilitaVotacaoSim
-
-9- O resultado da votação pode ser visualizado na fila no rabbitMQ 'VOTACAO_RESULTADO' criado, bem como na tabela Pauta.
-
-10- Caso queira visualizar o resultado da votação no end-point /v1/pautas/{id}
-
-
-# Passos para rodar aplicação via docker-compose
-
-1- git clone https://github.com/thiago-jv/VOTACAO_API.git
-
-2- dentro do path /votacao -> docker compose up --build backend 
-
-Link de Acesso a API - Local
-http://localhost:8089/votacaoapi/swagger-ui.html#/
-
-Link de Acesso RabbitMQ - Local
-http://localhost:15672/#
-
-Usuario: admin
-Senha: admin
-
-Link de Acesso phpmy-admin - Local
-http://localhost:8080/index.php?route=/
-
-Usuario: root
-Senha: my_secret_password
-
-![swagger](https://github.com/thiago-jv/VOTACAO_API/blob/main/swagger.png)
-
-# Requisitos
-
-1- Instalar ou configura manven 3.8.7 ou superior compativel.
-
-2- Instalar jdk-11.0.18 ou superior compativel.
-
-3- Instalar docker 4.6.1 ou superior compativel.
-
-
-
-                                                         Desafio Técnico
 Objetivo
 
 No cooperativismo, cada associado possui um voto e as decisões são tomadas em assembleias, por votação.
@@ -109,6 +36,71 @@ nível de conhecimento e a qualidade da entrega.
 
 * Tarefa Bônus 3 - Versionamento da API
    Como você versionaria a API da sua aplicação? Que estratégia usar?
+
+
+Tecnologias Utilizadas
+
+# Stack utilizada e mais
+
+1. Spring Boot
+2. Spring Data
+3. Spring Profiles
+4. Partner - DTO Data Transfer Object
+5. Partner - Repository
+6. Arquitetura de MicroServiços
+7. MapStruct
+8. Lombok
+9. Logger
+10. Maven
+11. junit
+12. RestAssured
+13. Swagger
+14. Clean Code
+15. SOLID
+16. Mensageria - RabbitMQ
+17. Docker compose
+18. PostgreSQL
+
+
+# Frontend 
+```
+(Front-end do projeto): VOTACAO_UI - Responsável pela interface de acesso as funcionalidade e integração desenvolvidas no backend.
+
+https://github.com/thiago-jv/VOTACAO-UI
+```
+
+# Passos para rodar aplicação via docker-compose
+
+```
+1- git clone https://github.com/thiago-jv/VOTACAO_API.git
+
+2- dentro do path /votacao -> docker compose up
+```
+
+Link de Acesso a API - Local
+
+```
+http://localhost:8089/votacaoapi/swagger-ui.html#/
+```
+
+Link de Acesso RabbitMQ - Local
+```
+http://localhost:15672/#
+
+Usuario: admin
+Senha: admin
+```
+
+![swagger](https://github.com/thiago-jv/VOTACAO_API/blob/main/swagger.png)
+
+# Requisitos
+```
+1- Instalar ou configura manven 3.8.7 ou superior compativel.
+
+2- Instalar jdk-11.0.18 ou superior compativel.
+
+3- Instalar docker 4.6.1 ou superior compativel.
+```
 
 
 
